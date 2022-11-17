@@ -42,7 +42,7 @@ const Home = ({ citiesData, stylesData }: Props) => {
             Find your travel style
           </h2>
           {/* map styles data from api */}
-          <div className="flex space-x-3 overflow-x-scroll p-3 -ml-3">
+          <div className="flex space-x-3 overflow-x-scroll scrollbar-thin scrollbar-track-[#ede8e824] scrollbar-thumb-orange-400 p-3 -ml-3 pb-6">
             {stylesData.map((style) => (
               <MediumCard key={style.img} styleData={style} />
             ))}
