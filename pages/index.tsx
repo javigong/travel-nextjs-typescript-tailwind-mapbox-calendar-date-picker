@@ -32,7 +32,7 @@ const Home = ({ citiesData, stylesData }: Props) => {
           {/* map data from api */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {citiesData.map((city) => (
-              <SmallCard key={city.location} cityData={city} />
+              <SmallCard key={city.img} cityData={city} />
             ))}
           </div>
         </section>
