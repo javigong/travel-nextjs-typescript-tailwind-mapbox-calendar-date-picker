@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import InfoCard from "../components/InfoCard";
+import MapCard from "../components/MapCard";
 import { IResult } from "../typings";
 
 type Props = {
@@ -12,8 +13,6 @@ type Props = {
 const Search = ({ searchResults }: Props) => {
   const router = useRouter();
   const { location, startDate, endDate, numOfGuests } = router.query;
-
-  console.log(searchResults);
 
   const formattedStartDate = format(
     new Date(startDate as string),
@@ -48,6 +47,7 @@ const Search = ({ searchResults }: Props) => {
             {searchResults.map(
               (item) => (
                 <InfoCard
+                  key={item.img}
                   item={item}
                 />
               )
@@ -55,6 +55,9 @@ const Search = ({ searchResults }: Props) => {
           </div>
         </section>
         {/* right section with map */}
+        <section className="hidden lg:inline-flex xl:min-w-[600px]">
+          <MapCard searchResults={searchResults} />
+        </section>
       </main>
 
       <Footer />
