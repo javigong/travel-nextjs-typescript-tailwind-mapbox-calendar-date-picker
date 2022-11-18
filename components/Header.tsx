@@ -6,10 +6,13 @@ import {
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import useDebounce from "../hooks/useDebounce";
+import { ISuggestionFormatted } from "../typings";
+import getCitySuggestions from "../utils/getCitySuggestions";
 
 type Props = {
   placeholder?: string;
@@ -17,10 +20,21 @@ type Props = {
 
 const Header = ({ placeholder }: Props) => {
   const [searchInput, setSearchInput] = useState("");
+  const debouncedSearchInput = useDebounce(searchInput, 1000);
+  const [citySuggestions, setCitySuggestions] = useState<
+    ISuggestionFormatted[] | null
+  >(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numOfGuests, setNumOfGuests] = useState("1");
   const router = useRouter();
+
+  useEffect(() => {
+    searchInput.length > 3 &&
+      getCitySuggestions(debouncedSearchInput, setCitySuggestions).catch(
+        console.error
+      );
+  }, [debouncedSearchInput]);
 
   const selectionRange = {
     startDate: startDate,
@@ -81,6 +95,13 @@ const Header = ({ placeholder }: Props) => {
           <Bars3Icon className="h-6" />
           <UserCircleIcon className="h-6" />
         </div>
+      </div>
+
+      <div className="flex max-w-6xl mx-auto">
+      {citySuggestions &&
+        citySuggestions.map((city) => (
+            (city.type==="CITY") && <div>{city.displayName}</div>
+        ))}
       </div>
 
       {searchInput && (
