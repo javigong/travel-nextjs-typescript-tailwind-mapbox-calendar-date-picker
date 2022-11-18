@@ -1,10 +1,12 @@
 import { format } from "date-fns";
+import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import InfoCard from "../components/InfoCard";
 import MapCard from "../components/MapCard";
 import { IResult } from "../typings";
+import getHotelList from "../utils/getHotelList";
 
 type Props = {
   searchResults: IResult[];
@@ -44,16 +46,12 @@ const Search = ({ searchResults }: Props) => {
           </div>
           <div className="flex flex-col">
             {/* map search results data */}
-            {searchResults.map(
-              (item) => (
-                <InfoCard
-                  key={item.img}
-                  item={item}
-                />
-              )
-            )}
+            {searchResults.map((item) => (
+              <InfoCard key={item.img} item={item} />
+            ))}
           </div>
         </section>
+
         {/* right section with map */}
         <section className="hidden lg:inline-flex xl:min-w-[600px]">
           <MapCard searchResults={searchResults} />
@@ -67,11 +65,10 @@ const Search = ({ searchResults }: Props) => {
 
 export default Search;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const { id, location, startDate, endDate, numOfGuests } = context.query;
   // TODO: use context to get the router query params to fetch from a third api
-  const searchResults = await fetch("https://www.jsonkeeper.com/b/5NPS").then(
-    (res) => res.json()
-  );
+  const searchResults = await getHotelList(id, location, startDate, endDate, numOfGuests).catch(console.error);
 
   return {
     props: {
