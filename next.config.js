@@ -8,6 +8,7 @@ module.exports = {
       "t3.gstatic.com",
       "upload.wikimedia.org",
       "links.papareact.com",
+      "images.trvl-media.com",
     ],
   },
 };
