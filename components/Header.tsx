@@ -24,12 +24,16 @@ const Header = ({ placeholder }: Props) => {
   const [citySuggestions, setCitySuggestions] = useState<
     ISuggestionFormatted[] | null
   >(null);
+  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+    null
+  );
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numOfGuests, setNumOfGuests] = useState("1");
   const router = useRouter();
 
   useEffect(() => {
+    setCitySuggestions(null);
     searchInput.length > 3 &&
       getCitySuggestions(debouncedSearchInput, setCitySuggestions).catch(
         console.error
@@ -48,6 +52,8 @@ const Header = ({ placeholder }: Props) => {
   };
 
   const resetInput = () => {
+    setCitySuggestions(null);
+    setSelectedCity(null);
     setSearchInput("");
   };
 
@@ -55,7 +61,8 @@ const Header = ({ placeholder }: Props) => {
     router.push({
       pathname: "/search",
       query: {
-        location: searchInput,
+        location: selectedCity?.shortName,
+        id: selectedCity?.id,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
         numOfGuests,
@@ -65,10 +72,10 @@ const Header = ({ placeholder }: Props) => {
 
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-2 md:px-10">
-      {/* left section */}
+      {/* Left Section */}
       <div
         onClick={() => router.push("/")}
-        className="relative flex items-center h-10 my-auto overflow-hidden"
+        className="relative flex items-center h-10 w-25 my-auto overflow-hidden"
       >
         <Image
           className="object-contain cursor-pointer"
@@ -78,7 +85,8 @@ const Header = ({ placeholder }: Props) => {
           alt="Travel"
         />
       </div>
-      {/* middle section */}
+
+      {/* Middle Section */}
       <div className="flex items-center justify-between md:border-2 rounded-full py-2 px-5 md:shadow-sm">
         <input
           value={searchInput}
@@ -89,7 +97,8 @@ const Header = ({ placeholder }: Props) => {
         />
         <MagnifyingGlassIcon className="hidden md:inline w-8 bg-orange-500 text-white rounded-full p-2 ml-2" />
       </div>
-      {/* right section */}
+
+      {/* Right Section */}
       <div className="flex space-x-4 items-center justify-end text-gray-500">
         <div className="flex items-center space-x-2 p-2 rounded-full border-2">
           <Bars3Icon className="h-6" />
@@ -97,14 +106,29 @@ const Header = ({ placeholder }: Props) => {
         </div>
       </div>
 
-      <div className="flex max-w-6xl mx-auto">
-      {citySuggestions &&
-        citySuggestions.map((city) => (
-            (city.type==="CITY") && <div>{city.displayName}</div>
-        ))}
+      {/* Search Autocompletion, Bottom */}
+      <div className="flex flex-col col-span-3 ml-[306px] mx-auto my-3">
+        {!selectedCity &&
+          citySuggestions &&
+          citySuggestions?.map(
+            (city) =>
+              city.type === "CITY" && (
+                <div
+                  key={city.id}
+                  className=" cursor-pointer p-1 hover:bg-orange-100 active:bg-orange-200 rounded-lg"
+                  onClick={() => {
+                    setSelectedCity(city);
+                    setSearchInput(city.displayName);
+                  }}
+                >
+                  <p>{city.displayName}</p>
+                </div>
+              )
+          )}
       </div>
 
-      {searchInput && (
+      {/* Date Range Picker, Bottom */}
+      {selectedCity && (
         <div className="flex flex-col col-span-3 mx-auto my-3">
           <DateRangePicker
             ranges={[selectionRange]}
