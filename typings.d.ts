@@ -9,11 +9,47 @@ export interface IStyleData {
   title: string;
 }
 
+export interface IProperty {
+  propertyImage: {
+    image: {
+      url: string;
+    };
+  };
+  destinationInfo: {
+    distanceFromDestination: {
+      value: number;
+    };
+  };
+  mapMarker: {
+    latLong: {
+      latitude: number;
+      longitude: number;
+    };
+  };
+  name: string;
+  neighborhood: {
+    name: string;
+  };
+  reviews: {
+    score: number;
+  };
+  price: {
+    options: [
+      {
+        formattedDisplayPrice: string;
+      }
+    ];
+    lead: {
+      amount: number;
+    };
+  };
+}
+
 export interface IResult {
   description: string;
   img: string;
   lat: number;
-  location: string;
+  location: number;
   long: number;
   price: string;
   star: number;
@@ -26,7 +62,9 @@ export interface IOptions {
   headers: {
     "X-RapidAPI-Key": string;
     "X-RapidAPI-Host": string;
+    "content-type"?: string;
   };
+  body?: string;
 }
 
 export interface ISuggestion {
@@ -35,12 +73,12 @@ export interface ISuggestion {
     displayName: string;
   };
   gaiaId: number;
-  type: string,
+  type: string;
 }
 
 export interface ISuggestionFormatted {
-  shortName: string,
-  displayName: string,
-  id: number,
-  type: string,
+  shortName: string;
+  displayName: string;
+  id: number;
+  type: string;
 }
