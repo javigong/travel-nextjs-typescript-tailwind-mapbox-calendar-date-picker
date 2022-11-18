@@ -13,7 +13,6 @@ const getCitySuggestions = async (word: string, setData: any) => {
     options
   );
   const json = await data.json();
-  console.log({json});
 
   const suggestionsFormatted = json.sr.map((suggestion: ISuggestion) => ({
     shortName: suggestion.regionNames.shortName,
