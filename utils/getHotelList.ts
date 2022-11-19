@@ -53,9 +53,9 @@ const getHotelList = async (
       description: property.neighborhood.name,
       star: property.reviews.score,
       price: `${property.price.options[0].formattedDisplayPrice} / night`,
-      total: `${Math.round(
+      total: `CA$${Math.round(
         parseInt(numOfGuests as string) * (property.price.lead.amount * 1.035)
-      )} total"`,
+      )} total`,
       long: property.mapMarker.latLong.longitude,
       lat: property.mapMarker.latLong.latitude,
     })
