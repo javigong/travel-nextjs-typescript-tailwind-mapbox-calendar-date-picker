@@ -114,16 +114,18 @@ const Header = ({ placeholder }: Props) => {
         citySuggestions?.map(
           (city) =>
             city.type === "CITY" && (
-              <div className="flex flex-col col-start-2 my-3">
+              <div className="flex flex-col col-start-2 col-end-4 mt-2">
                 <div
+                className="flex"
                   key={city.id}
-                  className="cursor-pointer p-1 pl-5 hover:bg-orange-100 active:bg-orange-200 rounded-lg"
                   onClick={() => {
                     setSelectedCity(city);
                     setSearchInput(city.displayName);
                   }}
                 >
-                  <p>{city.displayName}</p>
+                  <p className="shrink cursor-pointer p-1 px-5 hover:bg-orange-100 active:bg-orange-200 rounded-lg">
+                    {city.displayName}
+                  </p>
                 </div>
               </div>
             )
