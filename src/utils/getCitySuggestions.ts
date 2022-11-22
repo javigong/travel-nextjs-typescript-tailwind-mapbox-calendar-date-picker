@@ -1,4 +1,4 @@
-import { IOptions, ISuggestion } from "../typings";
+import { IOptions, ISuggestion } from "../types/typings";
 
 const getCitySuggestions = async (word: string, setData: any) => {
   const options: IOptions = {

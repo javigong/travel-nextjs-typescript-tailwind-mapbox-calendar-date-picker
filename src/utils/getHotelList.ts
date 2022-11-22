@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { IOptions, IProperty } from "../typings";
+import { IOptions, IProperty } from "../types/typings";
 
 const getHotelList = async (
   id: string | string[] | undefined,
@@ -24,8 +24,16 @@ const getHotelList = async (
     locale: "en_CA",
     siteId: 300000001,
     destination: { regionId: `${id}` },
-    checkInDate: { day: Number(startDay), month: Number(startMonth), year: Number(startYear) },
-    checkOutDate: { day: Number(endDay), month: Number(endMonth), year: Number(endYear) },
+    checkInDate: {
+      day: Number(startDay),
+      month: Number(startMonth),
+      year: Number(startYear),
+    },
+    checkOutDate: {
+      day: Number(endDay),
+      month: Number(endMonth),
+      year: Number(endYear),
+    },
     rooms: [{ adults: Number(numOfGuests) }],
     resultsStartingIndex: 0,
     resultsSize: 25,

@@ -82,3 +82,18 @@ export interface ISuggestionFormatted {
   id: number;
   type: string;
 }
+
+export interface provider {
+  name: string,
+  id: string,
+}
+
+export interface ISession {
+  user: {
+    name: string;
+    email: string;
+    image: string;
+    address: string;
+  } & DefaultSession["user"];
+  expires: string;
+}
