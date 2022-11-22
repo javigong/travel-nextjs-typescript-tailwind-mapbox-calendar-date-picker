@@ -4,6 +4,7 @@ import {
   UserCircleIcon,
   UsersIcon,
 } from "@heroicons/react/24/solid";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -13,12 +14,14 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import useDebounce from "../hooks/useDebounce";
 import { ISuggestionFormatted } from "../types/typings";
 import getCitySuggestions from "../utils/getCitySuggestions";
+``;
 
 type Props = {
   placeholder?: string;
 };
 
 const Header = ({ placeholder }: Props) => {
+  const { data: session, status } = useSession();
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearchInput = useDebounce(searchInput, 1000);
   const [citySuggestions, setCitySuggestions] = useState<
@@ -100,10 +103,15 @@ const Header = ({ placeholder }: Props) => {
         </div>
       </div>
 
-      {/* Right Section */}
+      {/* Right Section, User Menu */}
       <div className="flex space-x-4 items-center justify-end text-gray-500">
         <div className="flex items-center space-x-2 p-2 rounded-full border-2">
-          <Bars3Icon className="h-6" />
+          <div
+            onClick={!session ? () => signIn() : () => signOut()}
+            className="cursor-pointer link"
+          >
+            <Bars3Icon className="h-6" />
+          </div>
           <UserCircleIcon className="h-6" />
         </div>
       </div>
@@ -116,7 +124,7 @@ const Header = ({ placeholder }: Props) => {
             city.type === "CITY" && (
               <div className="flex flex-col col-start-2 col-end-4 mt-2">
                 <div
-                className="flex"
+                  className="flex"
                   key={city.id}
                   onClick={() => {
                     setSelectedCity(city);
