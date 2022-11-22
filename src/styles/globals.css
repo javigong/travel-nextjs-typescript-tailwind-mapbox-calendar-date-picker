@@ -6,4 +6,11 @@
   .button {
     @apply px-4 py-2 border rounded-full cursor-pointer hover:shadow-lg active:scale-95 active:bg-gray-100 transition transform duration-100 ease-out
   }
+
+  .drawer-item {
+    @apply text-gray-600 text-base shrink cursor-pointer p-1 px-5 hover:bg-orange-100 active:bg-orange-200 rounded-lg
+  }
+  .drawer-current-item {
+    @apply font-bold text-base shrink p-1 px-5
+  }
 }
