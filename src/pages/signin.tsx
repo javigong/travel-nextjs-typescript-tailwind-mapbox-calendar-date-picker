@@ -1,6 +1,9 @@
 import { GetServerSidePropsContext } from "next";
-import { getProviders, getSession, signIn } from "next-auth/react";
+import { getProviders, getSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
+import Image from "next/image";
+import { useState } from "react";
+import Drawer from "../components/Drawer";
 import Header from "../components/Header";
 import { provider } from "../types/typings";
 
@@ -9,6 +12,7 @@ type Props = {
 };
 
 const SignIn = ({ providers }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="h-screen">
       <Head>
@@ -16,11 +20,12 @@ const SignIn = ({ providers }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}
-      <Header />
+      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       {/* Main */}
       <main className="h-[80%]">
-        {Object.values(providers).map((provider) => (
-          <div className="relative h-[80%]">
+        <div className="relative h-[80%]">
+          <Image className="-translate-y-[145px] max-w-xl p-5 mx-auto" src="/travel-logo.svg" fill alt="Travel" />
+          {Object.values(providers).map((provider) => (
             <div
               className="absolute top-1/2 w-full text-center"
               key={provider.name}
@@ -32,9 +37,17 @@ const SignIn = ({ providers }: Props) => {
                 Sign in with {provider.name}
               </button>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </main>
+      {/* Drawer */}
+      <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
+        <p className="drawer-item">List of Favorites</p>
+        <p className="drawer-item">Your Bookings</p>
+        <p onClick={() => signOut()} className="drawer-item">
+          Sign out
+        </p>
+      </Drawer>
     </div>
   );
 };
