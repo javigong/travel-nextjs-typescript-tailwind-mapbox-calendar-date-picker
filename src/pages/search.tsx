@@ -1,6 +1,9 @@
 import { format } from "date-fns";
 import { GetServerSidePropsContext } from "next";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import Drawer from "../components/Drawer";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import InfoCard from "../components/InfoCard";
@@ -13,6 +16,8 @@ type Props = {
 };
 
 const Search = ({ searchResults }: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
+  
   const router = useRouter();
   const { location, startDate, endDate, numOfGuests } = router.query;
 
@@ -25,7 +30,7 @@ const Search = ({ searchResults }: Props) => {
 
   return (
     <div>
-      <Header placeholder={`${location} - ${range} - ${numOfGuests}`} />
+      <Header isOpen={isOpen} setIsOpen={setIsOpen} placeholder={`${location} - ${range} - ${numOfGuests}`} />
 
       <main className="flex">
         {/* left section */}
@@ -57,8 +62,14 @@ const Search = ({ searchResults }: Props) => {
           <MapCard searchResults={searchResults} />
         </section>
       </main>
-
       <Footer />
+
+      {/* Drawer */}
+      <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
+        <p className="drawer-item">List of Favorites</p>
+        <p className="drawer-item">Your Bookings</p>
+        <p onClick={()=>signOut()} className="drawer-item">Sign out</p>
+      </Drawer>
     </div>
   );
 };
