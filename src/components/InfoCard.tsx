@@ -2,10 +2,10 @@ type Props = {
   item: IResult;
 };
 
+import { HeartIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
-import {HeartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { IResult } from "../typings";
+import { IResult } from "../types/typings";
 
 const InfoCard = ({ item }: Props) => {
   return (

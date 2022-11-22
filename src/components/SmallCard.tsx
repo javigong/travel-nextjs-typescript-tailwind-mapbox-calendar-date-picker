@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ICityData } from "../typings";
+import { ICityData } from "../types/typings";
 
 type Props = {
   cityData: ICityData;
@@ -10,7 +10,12 @@ const SmallCard = ({ cityData }: Props) => {
     <div className="flex items-center m-2 space-x-4 rounded-xl cursor-pointer hover:bg-gray-100 hover:scale-105 transition transform duration-200 ease-out">
       {/* left side */}
       <div className="relative h-16 w-16">
-        <Image className="rounded-lg" src={cityData.img} alt={cityData.location} fill />
+        <Image
+          className="rounded-lg"
+          src={cityData.img}
+          alt={cityData.location}
+          fill
+        />
       </div>
       {/* right side */}
       <div>

@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Image from "next/image";
 import { useState } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
-import { IResult } from "../typings";
+import { IResult } from "../types/typings";
 
 type Props = {
   searchResults: IResult[];

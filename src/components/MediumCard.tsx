@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IStyleData } from "../typings";
+import { IStyleData } from "../types/typings";
 
 type Props = {
   styleData: IStyleData;
