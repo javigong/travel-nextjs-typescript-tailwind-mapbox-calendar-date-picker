@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import LargeCard from "../components/LargeCard";
 import MediumCard from "../components/MediumCard";
 import SmallCard from "../components/SmallCard";
-import { ICityData, IStyleData } from "../typings";
+import { ICityData, IStyleData } from "../types/typings";
 
 type Props = {
   citiesData: ICityData[];
@@ -56,7 +56,7 @@ const Home = ({ citiesData, stylesData }: Props) => {
           buttonText="Get Inspired"
         />
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

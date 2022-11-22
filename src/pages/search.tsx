@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import InfoCard from "../components/InfoCard";
 import MapCard from "../components/MapCard";
-import { IResult } from "../typings";
+import { IResult } from "../types/typings";
 import getHotelList from "../utils/getHotelList";
 
 type Props = {
@@ -65,10 +65,18 @@ const Search = ({ searchResults }: Props) => {
 
 export default Search;
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const { id, location, startDate, endDate, numOfGuests } = context.query;
   // TODO: use context to get the router query params to fetch from a third api
-  const searchResults = await getHotelList(id, location, startDate, endDate, numOfGuests).catch(console.error);
+  const searchResults = await getHotelList(
+    id,
+    location,
+    startDate,
+    endDate,
+    numOfGuests
+  ).catch(console.error);
 
   return {
     props: {
