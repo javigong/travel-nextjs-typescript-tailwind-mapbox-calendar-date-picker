@@ -1,5 +1,9 @@
+import { signOut } from "next-auth/react";
 import Head from "next/head";
+import Link from "next/link";
+import { useState } from "react";
 import Banner from "../components/Banner";
+import Drawer from "../components/Drawer";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LargeCard from "../components/LargeCard";
@@ -13,6 +17,8 @@ type Props = {
 };
 
 const Home = ({ citiesData, stylesData }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="">
       <Head>
@@ -20,7 +26,7 @@ const Home = ({ citiesData, stylesData }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}
-      <Header />
+      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       {/* Banner */}
       <Banner />
 
@@ -57,6 +63,19 @@ const Home = ({ citiesData, stylesData }: Props) => {
         />
       </main>
       <Footer />
+
+      {/* Drawer */}
+      <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
+        <p className="drawer-item">
+          <Link href={"/favorites"}>List of Favorites</Link>
+        </p>
+        <p className="drawer-item">
+        <Link href={"/bookings"}>Your Bookings</Link>
+          </p>
+        <p onClick={() => signOut()} className="drawer-item">
+          Sign out
+        </p>
+      </Drawer>
     </div>
   );
 };
