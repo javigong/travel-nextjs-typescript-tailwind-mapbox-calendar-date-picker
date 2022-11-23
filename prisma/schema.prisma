@@ -43,18 +43,19 @@ model Session {
 }
 
 model Hotel {
-  id          String @unique
+  id          String @id @default(cuid())
+  hotelId     String
   description String
   img         String
-  lat         Int
-  location    Int
-  long        Int
+  lat         Float
+  location    String
+  long        Float
   price       String
-  star        Int
+  star        Float
   title       String
   total       String
-  userId      String
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userEmail      String
+  user        User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)
 }
 
 model User {
