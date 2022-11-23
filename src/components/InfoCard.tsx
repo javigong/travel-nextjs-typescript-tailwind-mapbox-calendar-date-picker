@@ -1,13 +1,28 @@
-type Props = {
-  item: IResult;
-};
 
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { IResult } from "../types/typings";
 
+type Props = {
+  item: IResult;
+};
+
 const InfoCard = ({ item }: Props) => {
+  const submitFavorite = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      const body = { ...item  };
+      await fetch("/api/post-favorite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex py-7 px-2 pr-4 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
       <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
@@ -22,7 +37,7 @@ const InfoCard = ({ item }: Props) => {
       <div className="flex flex-col flex-grow pl-5">
         <div className="flex justify-between">
           <p className="">{item.location}</p>
-          <HeartIcon className="h-7 cursor-pointer" />
+          <HeartIcon onClick={submitFavorite} className="h-7 cursor-pointer" />
         </div>
         <h4 className="text-xl">{item.title}</h4>
         <div className="border-b w-10 pt-2" />
