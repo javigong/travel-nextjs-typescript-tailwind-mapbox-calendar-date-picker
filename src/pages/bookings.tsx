@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { GetServerSidePropsContext } from "next";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Drawer from "../components/Drawer";
@@ -30,7 +31,7 @@ const Bookings = ({ searchResults }: Props) => {
           </p>
 
           <h1 className="text-3xl font-semibold mt-2 mb-6">
-            Your Bookings
+            Bookings
           </h1>
 
           <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
@@ -56,9 +57,15 @@ const Bookings = ({ searchResults }: Props) => {
 
       {/* Drawer */}
       <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-        <p className="drawer-item">List of Favorites</p>
-        <p className="drawer-item">Your Bookings</p>
-        <p onClick={()=>signOut()} className="drawer-item">Sign out</p>
+        <p className="drawer-item">
+          <Link href={"/favorites"}>List of Favorites</Link>
+        </p>
+        <p className="drawer-current-item">
+        Your Bookings
+          </p>
+        <p onClick={() => signOut()} className="drawer-item">
+          Sign out
+        </p>
       </Drawer>
     </div>
   );
