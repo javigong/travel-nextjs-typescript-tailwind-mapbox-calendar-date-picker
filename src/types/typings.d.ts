@@ -1,3 +1,6 @@
+import "next-auth";
+import { DefaultUser } from "next-auth";
+
 export interface ICityData {
   img: string;
   location: string;
@@ -47,7 +50,7 @@ export interface IProperty {
 }
 
 export interface IResult {
-  id?: string;
+  hotelId: string;
   description: string;
   img: string;
   lat: number;
@@ -57,6 +60,7 @@ export interface IResult {
   star: number;
   title: string;
   total: string;
+  userEmail?: string;
 }
 
 export interface IOptions {
@@ -86,16 +90,6 @@ export interface ISuggestionFormatted {
 }
 
 export interface provider {
-  name: string,
-  id: string,
-}
-
-export interface ISession {
-  user: {
-    name: string;
-    email: string;
-    image: string;
-    address: string;
-  } & DefaultSession["user"];
-  expires: string;
+  name: string;
+  id: string;
 }
