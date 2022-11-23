@@ -26,6 +26,7 @@ export interface IProperty {
       longitude: number;
     };
   };
+  id: string;
   name: string;
   neighborhood: {
     name: string;
@@ -46,6 +47,7 @@ export interface IProperty {
 }
 
 export interface IResult {
+  id?: string;
   description: string;
   img: string;
   lat: number;
