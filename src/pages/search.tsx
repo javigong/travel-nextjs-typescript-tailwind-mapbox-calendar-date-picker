@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { GetServerSidePropsContext } from "next";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Drawer from "../components/Drawer";
@@ -16,6 +16,8 @@ type Props = {
 };
 
 const Search = ({ searchResults }: Props) => {
+  const { data: session } = useSession();
+  const userId = session?.user?.email;
   const [isOpen, setIsOpen] = useState(false)
   
   const router = useRouter();
