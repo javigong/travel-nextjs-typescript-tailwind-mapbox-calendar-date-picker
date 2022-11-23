@@ -4,7 +4,7 @@ import Image from "next/image";
 type Props = {};
 
 const Banner = (props: Props) => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   return (
     <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl-h-[600px] 2xl:h-[700px]">
