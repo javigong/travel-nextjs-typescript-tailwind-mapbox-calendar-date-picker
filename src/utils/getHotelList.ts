@@ -55,7 +55,7 @@ const getHotelList = async (
 
   const hotelsListFormatted = await json.data.propertySearch.properties.map(
     (property: IProperty) => ({
-      id: property.id,
+      hotelId: property.id,
       img: property.propertyImage.image.url,
       location: `Private room ${property.destinationInfo.distanceFromDestination.value} km from ${location}`,
       title: property.name,
