@@ -31,7 +31,7 @@ const Favorites = ({ searchResults }: Props) => {
           </p>
 
           <h1 className="text-3xl font-semibold mt-2 mb-6">
-            Your Favorites
+            Favorites
           </h1>
 
           <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
