@@ -8,7 +8,7 @@ export default async function handle(
   const { userEmail } = req.query;
   if (req.method === "GET") {
     const user = await prisma.user.findUnique({
-      where: { email: "jgongora@gmail.com" },
+      where: { email: userEmail as string },
       select: { favorites: true}
     });
     res.json(user);
