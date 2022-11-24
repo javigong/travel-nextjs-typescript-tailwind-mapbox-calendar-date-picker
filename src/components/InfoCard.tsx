@@ -1,20 +1,46 @@
-
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/24/solid";
+import {
+  HeartIcon as HeartIconSolid,
+  StarIcon,
+} from "@heroicons/react/24/solid";
+import { Session } from "next-auth";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { IResult } from "../types/typings";
 
 type Props = {
   item: IResult;
+  session: Session;
+  favorite?: Boolean;
 };
 
-const InfoCard = ({ item }: Props) => {
-  const submitFavorite = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
+const InfoCard = ({ item, session, favorite = false }: Props) => {
+  const [isFav, setIsFav] = useState(false);
+  const userEmail = session?.user?.email!;
+  const hotelId = item.hotelId;
+
+  useEffect(() => {
+    if (favorite) setIsFav(true);
+  }, []);
+
+  const submitFavorite = async () => {
     try {
-      const body = { ...item  };
+      const body = { ...item };
       await fetch("/api/post-favorite", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteFavorite = async () => {
+    try {
+      const body = { hotelId: hotelId, userEmail: userEmail };
+      await fetch("/api/delete-favorite", {
+        method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
@@ -37,7 +63,23 @@ const InfoCard = ({ item }: Props) => {
       <div className="flex flex-col flex-grow pl-5">
         <div className="flex justify-between">
           <p className="">{item.location}</p>
-          <HeartIcon onClick={submitFavorite} className="h-7 cursor-pointer" />
+          {!isFav ? (
+            <HeartIcon
+              onClick={() => {
+                submitFavorite();
+                setIsFav(true);
+              }}
+              className="h-7 cursor-pointer"
+            />
+          ) : (
+            <HeartIconSolid
+              onClick={() => {
+                deleteFavorite();
+                setIsFav(false);
+              }}
+              className="h-7 cursor-pointer"
+            />
+          )}
         </div>
         <h4 className="text-xl">{item.title}</h4>
         <div className="border-b w-10 pt-2" />
