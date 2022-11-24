@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { GetServerSidePropsContext } from "next";
 import { Session } from "next-auth";
 import { getSession, signOut } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Drawer from "../components/Drawer";
@@ -70,10 +71,13 @@ const Search = ({ searchResults, session }: Props) => {
       </main>
       <Footer />
 
-      {/* Drawer */}
       <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-        <p className="drawer-item">List of Favorites</p>
-        <p className="drawer-item">Your Bookings</p>
+        <p className="drawer-item">
+          <Link href={"/favorites"}>List of Favorites</Link>
+        </p>
+        <p className="drawer-item">
+        <Link href={"/bookings"}>Your Bookings</Link>
+          </p>
         <p onClick={() => signOut()} className="drawer-item">
           Sign out
         </p>
