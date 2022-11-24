@@ -54,8 +54,10 @@ model Hotel {
   star        Float
   title       String
   total       String
-  userEmail      String
+  userEmail   String
   user        User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+
+  @@unique([hotelId, userEmail])
 }
 
 model User {
