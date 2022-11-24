@@ -8,9 +8,10 @@ import { IResult } from "../types/typings";
 
 type Props = {
   searchResults: IResult[];
+  favorites?: Boolean;
 };
 
-const MapCard = ({ searchResults }: Props) => {
+const MapCard = ({ searchResults, favorites=false }: Props) => {
   const [selectedLocation, setSelectedLocation] = useState<IResult | null>(
     null
   );
@@ -27,7 +28,7 @@ const MapCard = ({ searchResults }: Props) => {
     initialViewState: {
       longitude: center.longitude,
       latitude: center.latitude,
-      zoom: 11,
+      zoom: favorites? 1: 11,
     },
   });
 
