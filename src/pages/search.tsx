@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { GetServerSidePropsContext } from "next";
-import { signOut, useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Drawer from "../components/Drawer";
@@ -13,13 +14,12 @@ import getHotelList from "../utils/getHotelList";
 
 type Props = {
   searchResults: IResult[];
+  session: Session;
 };
 
-const Search = ({ searchResults }: Props) => {
-  const { data: session } = useSession();
-  const userId = session?.user?.email;
-  const [isOpen, setIsOpen] = useState(false)
-  
+const Search = ({ searchResults, session }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const router = useRouter();
   const { location, startDate, endDate, numOfGuests } = router.query;
 
@@ -32,7 +32,11 @@ const Search = ({ searchResults }: Props) => {
 
   return (
     <div>
-      <Header isOpen={isOpen} setIsOpen={setIsOpen} placeholder={`${location} - ${range} - ${numOfGuests}`} />
+      <Header
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        placeholder={`${location} - ${range} - ${numOfGuests}`}
+      />
 
       <main className="flex">
         {/* left section */}
@@ -54,7 +58,7 @@ const Search = ({ searchResults }: Props) => {
           <div className="flex flex-col">
             {/* map search results data */}
             {searchResults.map((item) => (
-              <InfoCard key={item.img} item={item} />
+              <InfoCard key={item.img} item={item} session={session!} />
             ))}
           </div>
         </section>
@@ -70,7 +74,9 @@ const Search = ({ searchResults }: Props) => {
       <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
         <p className="drawer-item">List of Favorites</p>
         <p className="drawer-item">Your Bookings</p>
-        <p onClick={()=>signOut()} className="drawer-item">Sign out</p>
+        <p onClick={() => signOut()} className="drawer-item">
+          Sign out
+        </p>
       </Drawer>
     </div>
   );
@@ -82,7 +88,17 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { id, location, startDate, endDate, numOfGuests } = context.query;
-  // TODO: use context to get the router query params to fetch from a third api
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
   const searchResults = await getHotelList(
     id,
     location,
@@ -94,6 +110,7 @@ export const getServerSideProps = async (
   return {
     props: {
       searchResults,
+      session,
     },
   };
 };
