@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import { IOptions, IProperty } from "../types/typings";
 
 const getHotelList = async (
@@ -17,6 +17,11 @@ const getHotelList = async (
   const endDay = format(new Date(endDate as string), "dd");
   const endMonth = format(new Date(endDate as string), "MM");
   const endYear = format(new Date(endDate as string), "yyyy");
+
+  const diffInDays = differenceInDays(
+    new Date(endDate as string),
+    new Date(startDate as string),
+  )
 
   const bodyStr = await JSON.stringify({
     currency: "CAD",
@@ -61,10 +66,10 @@ const getHotelList = async (
       title: property.name,
       description: property.neighborhood.name,
       star: property.reviews.score,
-      price: `${property.price.options[0].formattedDisplayPrice} / night`,
-      total: `CA$${Math.round(
-        parseInt(numOfGuests as string) * (property.price.lead.amount * 1.035)
-      )} total`,
+      price: `${property.price.options[0].formattedDisplayPrice}`,
+      total: Math.round(
+        parseInt(numOfGuests as string) * (property.price.lead.amount * 1.035) * diffInDays
+      ),
       long: property.mapMarker.latLong.longitude,
       lat: property.mapMarker.latLong.latitude,
     })
