@@ -33,7 +33,7 @@ const MapCard = ({ searchResults, favorites=false }: Props) => {
   });
 
   return (
-    <div className="sticky top-[68px] w-full h-screen">
+    <>
       <Map
         {...viewport}
         mapStyle="mapbox://styles/javiergongora/clalbftnj000g15nsx3nbjynw"
@@ -100,7 +100,7 @@ const MapCard = ({ searchResults, favorites=false }: Props) => {
           </div>
         ))}
       </Map>
-    </div>
+    </>
   );
 };
 
