@@ -55,6 +55,7 @@ model Hotel {
   title       String
   total       String
   userEmail   String
+  cityId      String
   user        User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)
 
   @@unique([hotelId, userEmail])
