@@ -54,13 +54,19 @@ export interface IResult {
   description: string;
   img: string;
   lat: number;
-  location: number;
+  location?: number;
   long: number;
   price: string;
   star: number;
   title: string;
-  total: string;
+  total: string | number;
   userEmail?: string;
+}
+
+export interface IDetails {
+  images: string[],
+  amenities: string[];
+  address: string;
 }
 
 export interface IOptions {
@@ -92,4 +98,17 @@ export interface ISuggestionFormatted {
 export interface provider {
   name: string;
   id: string;
+}
+
+export interface IReservation {
+  price_data: {
+    currency: string,
+    unit_amount: number,
+    product_data: {
+      name: string,
+      description: string,
+      images: string[],
+    },
+  },
+  quantity: number,
 }
