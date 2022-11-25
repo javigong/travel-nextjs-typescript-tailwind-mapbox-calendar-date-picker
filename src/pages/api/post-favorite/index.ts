@@ -17,6 +17,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     star,
     title,
     total,
+    cityId,
   } = req.body;
 
   const session = await getSession({ req });
@@ -33,6 +34,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       title,
       total,
       userEmail: session?.user?.email!,
+      cityId,
     },
   });
   res.json(result);
