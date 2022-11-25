@@ -17,18 +17,15 @@ type Props = {
 
 const Favorites = ({ favorites, session }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log({ favorites });
+
   return (
     <div>
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
-
       <main className="flex">
-        {/* left section */}
+        {/* Left Section */}
         <section className="flex-grow pt-14 px-6">
           <p className="text-xs">Accommodation list</p>
-
           <h1 className="text-3xl font-semibold mt-2 mb-6">Favorites</h1>
-
           <div className="hidden lg:inline-flex mb-5 space-x-3 text-gray-800 whitespace-nowrap">
             <p className="button">Cancellation Flexibility</p>
             <p className="button">Price</p>
@@ -36,21 +33,27 @@ const Favorites = ({ favorites, session }: Props) => {
             <p className="button">More filters</p>
           </div>
           <div className="flex flex-col">
-            {/* map search results data */}
+            {/* Map Favorite Hotels */}
             {favorites?.map((item) => (
-              <InfoCard key={item.img} item={item} session={session!} favorite={true} />
+              <InfoCard
+                key={item.img}
+                item={item}
+                session={session!}
+                favorite={true}
+                fromFavPage={true}
+              />
             ))}
           </div>
         </section>
-
-        {/* right section with map */}
+        {/* MapBox, Right Section */}
         <section className="hidden lg:inline-flex flex-grow xl:min-w-[600px]">
-          <MapCard searchResults={favorites} favorites={true} />
+          <div className="sticky top-[68px] w-full h-screen">
+            <MapCard searchResults={favorites} favorites={true} />
+          </div>
         </section>
       </main>
       <Footer />
-
-      {/* Drawer */}
+      {/* Drawer Menu, hided by default */}
       <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
         <p className="drawer-current-item">List of Favorites</p>
         <p className="drawer-item">
@@ -81,7 +84,9 @@ export const getServerSideProps = async (
     };
   }
 
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/get-favorites?userEmail=${userEmail}`);
+  const response = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/get-favorites?userEmail=${userEmail}`
+  );
   const json = await response.json();
   const favorites = json.favorites;
 
