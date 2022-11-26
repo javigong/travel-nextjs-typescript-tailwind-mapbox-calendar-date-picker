@@ -1,9 +1,7 @@
 import { buffer } from "micro";
 import { NextApiRequest, NextApiResponse } from "next";
-import { useSession } from "next-auth/react";
-import prisma from "../../server/db/prismadb";
 
-// Establish connection to Stripe
+// Establish connection with Stripe
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 // API Request to Post Hotel Booking to DB
