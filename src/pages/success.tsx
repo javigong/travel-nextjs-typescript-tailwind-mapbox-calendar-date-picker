@@ -25,18 +25,25 @@ const Success = ({ session }: Props) => {
       <main className="flex flex-col max-w-4xl mx-auto">
         {/* Left Section */}
         <section className="flex-grow pt-14 px-6">
-        <div className="flex flex-col p-10 bg-white">
-          <div className="flex items-center space-x-2 mb-5">
-            <CheckCircleIcon className="text-green-500 h-10" />
-            <h1 className="text-3xl">
-              Thank you, your Reservation has been confirmed!
-            </h1>
+          <div className="flex flex-col space-y-8 p-10 mb-10 bg-white">
+            <div className="flex items-center space-x-2 mb-5">
+              <CheckCircleIcon className="text-green-500 h-10" />
+              <h1 className="text-3xl">
+                Thank you, your Reservation has been confirmed!
+              </h1>
+            </div>
+            <p>
+              Thank you for shopping with us. We'll send a confirmation once
+              your booking has been, if you would like to check the status of
+              your booking(s) please press the link below.
+            </p>
+            <button
+              className="mx-auto text-md px-3 py-1 italic text-white cursor-pointer bg-orange-500  rounded-xl mt-3 hover:bg-orange-600 active:scale-95 transition duration-250"
+              onClick={() => router.push("/bookings")}
+            >
+              Go to my Bookings
+            </button>
           </div>
-          <p>
-            Thank you for shopping with us. We'll send a confirmation once your booking has been, if you would like to check the status of your booking(s) please press the link below.
-          </p>
-          <button onClick={()=>router.push("/bookings")} className="button mt-8">Go to my orders</button>
-        </div>
         </section>
       </main>
       <Footer />
