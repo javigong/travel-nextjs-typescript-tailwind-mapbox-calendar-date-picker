@@ -16,8 +16,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     userEmail,
   } = req.body;
 
-  console.log(`######*********######### ${img.split('?')[0]} ###############`)
-
   const transformedItems : IReservation[] = [
     {
       price_data: {
