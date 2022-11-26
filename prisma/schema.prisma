@@ -61,6 +61,16 @@ model Hotel {
   @@unique([hotelId, userEmail])
 }
 
+model Booking {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  userEmail   String
+  sessionId   String   @unique
+  amountTotal Float
+  images      String
+  user        User     @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -70,6 +80,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   favorites     Hotel[]
+  Booking       Booking[]
 }
 
 model VerificationToken {
