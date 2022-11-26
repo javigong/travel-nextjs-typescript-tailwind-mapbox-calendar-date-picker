@@ -71,12 +71,13 @@ const Details = ({ detailsResult, session }: Props) => {
   useEffect(() => {
     if (favorite === "true") setIsFav(true);
   }, []);
+  // Create New Stripe Checkout Session
   const createCheckoutSession = async () => {
     // Load Stripe
     if (!stripePromise) {
       stripePromise = loadStripe(process.env.stripe_public_key!);
     }
-    // Call the backend to create a checkout session
+    // Call the Backend API to create a Checkout session
     const checkoutSession = await axios.post("/api/create-checkout-session", {
       hotelId: hotelId,
       title: title,
