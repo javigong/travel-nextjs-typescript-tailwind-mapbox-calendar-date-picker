@@ -15,7 +15,6 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import useDebounce from "../hooks/useDebounce";
 import { ISuggestionFormatted } from "../types/typings";
 import getCitySuggestions from "../utils/getCitySuggestions";
-``;
 
 type Props = {
   placeholder?: string;
