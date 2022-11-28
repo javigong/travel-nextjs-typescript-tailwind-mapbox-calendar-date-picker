@@ -59,14 +59,14 @@ export const getServerSideProps = async (
 ) => {
   const session = await getSession(context);
 
-  // if (session) {
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
