@@ -53,7 +53,7 @@ model Hotel {
   price       String
   star        Float
   title       String
-  total       String
+  total       Float
   userEmail   String
   cityId      String
   user        User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)

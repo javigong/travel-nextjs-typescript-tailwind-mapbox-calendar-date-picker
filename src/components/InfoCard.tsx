@@ -37,16 +37,20 @@ const InfoCard = ({
   const userEmail = session?.user?.email!;
   const userName = session.user?.name;
   const hotelId = item.hotelId;
+  let startDateFormatted = "";
+  let endDateFormatted = "";
 
   useEffect(() => {
     if (favorite) setIsFav(true);
   }, []);
 
-  const startDateFormatted = format(
-    new Date(startDate as string),
-    "dd MMMM yy"
-  );
-  const endDateFormatted = format(new Date(endDate as string), "dd MMMM yy");
+  if (startDate && endDate) {
+    startDateFormatted = format(
+      new Date(startDate as string),
+      "dd MMMM yy"
+    );
+    endDateFormatted = format(new Date(endDate as string), "dd MMMM yy");
+  }
 
   const details = () => {
     router.push({

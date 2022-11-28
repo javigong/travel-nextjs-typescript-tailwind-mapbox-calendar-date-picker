@@ -58,7 +58,7 @@ const Details = ({ detailsResult, session }: Props) => {
       description: description as string,
       star: parseFloat(star as string),
       price: price as string,
-      total: total as string,
+      total: total as unknown as number,
       long: parseFloat(long as string),
       lat: parseFloat(lat as string),
       userEmail: userEmail as string,

@@ -40,7 +40,7 @@ const Header = ({ placeholder, isOpen, setIsOpen }: Props) => {
 
   useEffect(() => {
     setCitySuggestions(null);
-    searchInput.length > 3 &&
+    searchInput?.length > 3 &&
       getCitySuggestions(debouncedSearchInput, setCitySuggestions).catch(
         console.error
       );

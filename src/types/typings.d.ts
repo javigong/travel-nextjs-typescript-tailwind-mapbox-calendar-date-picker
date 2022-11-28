@@ -59,7 +59,7 @@ export interface IResult {
   price: string;
   star: number;
   title: string;
-  total: string | number;
+  total: number;
   userEmail?: string;
 }
 
