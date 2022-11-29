@@ -35,7 +35,6 @@ const InfoCard = ({
   const router = useRouter();
   const [isFav, setIsFav] = useState(false);
   const userEmail = session?.user?.email!;
-  const userName = session.user?.name;
   const hotelId = item.hotelId;
   let startDateFormatted = "";
   let endDateFormatted = "";
