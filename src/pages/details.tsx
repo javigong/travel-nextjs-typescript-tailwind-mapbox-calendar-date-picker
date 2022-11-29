@@ -83,11 +83,16 @@ const Details = ({ detailsResult, session }: Props) => {
       title: title,
       description: description,
       img: img,
+      location: location,
       startDate: formattedStartDate,
       endDate: formattedEndDate,
       price: price,
       total: total,
       userEmail: userEmail,
+      long: long,
+      lat: lat,
+      star: star,
+      cityId: cityId,
     });
     const stripe = await stripePromise;
     // Redirect user/customer to Stripe Checkout
