@@ -9,11 +9,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     title,
     description,
     img,
+    location,
     startDate,
     endDate,
     price,
     total,
     userEmail,
+    long,
+    lat,
+    star,
+    cityId,
   } = req.body;
 
   const transformedItems : IReservation[] = [
@@ -44,6 +49,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     metadata: {
       email: userEmail,
       images: JSON.stringify([img]),
+      hotelId: hotelId,
+      description: description,
+      img: img,
+      location: location,
+      lat: lat,
+      long: long,
+      price: price,
+      star: star,
+      title: title,
+      total: total,
+      userEmail: userEmail,
+      cityId: cityId,
+      startDate: startDate,
+      endDate: endDate,
     },
   });
 
