@@ -66,10 +66,21 @@ model Hotel {
 model Booking {
   id          String   @id @default(cuid())
   createdAt   DateTime @default(now())
-  userEmail   String
   sessionId   String   @unique
-  amountTotal Float
-  images      String
+  hotelId     String
+  description String
+  startDate   String
+  endDate     String
+  img         String
+  lat         Float
+  location    String
+  long        Float
+  price       String
+  star        Float
+  title       String
+  total       Float
+  userEmail   String
+  cityId      String
   user        User     @relation(fields: [userEmail], references: [email], onDelete: Cascade)
 }
 
@@ -82,7 +93,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   favorites     Hotel[]
-  Booking       Booking[]
+  bookings      Booking[]
 }
 
 model VerificationToken {
