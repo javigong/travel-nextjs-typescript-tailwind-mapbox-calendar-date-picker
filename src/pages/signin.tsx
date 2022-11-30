@@ -24,10 +24,10 @@ const SignIn = ({ providers }: Props) => {
       {/* Main */}
       <main className="h-[80%]">
         <div className="relative h-[80%]">
-          <Image className="-translate-y-[145px] max-w-xl p-5 mx-auto" src="/travel-logo.svg" fill alt="Travel" />
+          <Image className="-translate-y-[55px] max-w-xl p-5 mx-auto" src="/travel-signin.svg" fill alt="Travel" />
           {Object.values(providers).map((provider) => (
             <div
-              className="absolute top-1/2 w-full text-center"
+              className="absolute top-[78%] w-full text-center"
               key={provider.name}
             >
               <button
