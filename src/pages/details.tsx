@@ -36,6 +36,7 @@ const Details = ({ detailsResult, session }: Props) => {
     cityId,
     favorite,
     fromFavPage,
+    booking,
     startDate,
     endDate,
     numOfGuests,
@@ -64,6 +65,7 @@ const Details = ({ detailsResult, session }: Props) => {
       userEmail: userEmail as string,
     },
   ];
+  console.log({ startDate, endDate });
   const formattedStartDate = startDate;
   const formattedEndDate = endDate;
   const range = `from ${formattedStartDate} to ${formattedEndDate}`;
@@ -146,9 +148,11 @@ const Details = ({ detailsResult, session }: Props) => {
       <main className="flex flex-col max-w-4xl mx-auto">
         {/* Left Section */}
         <section className="flex-grow pt-14 px-6">
-          <h3 className="text-sm font-extralight pb-4 mt-2 mb-6 border-b">
-            Accommodation available {range}, {numOfGuests} guests
-          </h3>
+          {fromFavPage === "false" && (
+            <h3 className="text-sm font-extralight pb-4 mt-2 mb-6 border-b">
+              Accommodation available {range}, {numOfGuests} guests
+            </h3>
+          )}
           <div className="flex justify-between">
             <p className="text-right">{location}</p>
             {/* Favorite Heart Icon */}
@@ -196,14 +200,20 @@ const Details = ({ detailsResult, session }: Props) => {
             ))}
           </Carousel>
           {/* Accommodation Price Details */}
-          <p className="text-right pb-1 text-sm md:text-base">{range}</p>
-          <p className="text-right text-md lg:text-xl">
-            {numOfGuests} {numOfGuests === "1" ? "Guest" : "Guests"}
-          </p>
+          {fromFavPage === "false" && (
+            <>
+              <p className="text-right pb-1 text-sm md:text-base">{range}</p>
+              <p className="text-right text-md lg:text-xl">
+                {numOfGuests} {numOfGuests === "1" ? "Guest" : "Guests"}
+              </p>
+            </>
+          )}
           <p className="text-right text-xl lg:text-2xl font-semibold">
             {`${price} / night`}
           </p>
-          <p className="text-right font-extralight">{`$${total} total (tax incl.)`}</p>
+          {fromFavPage === "false" && (
+            <p className="text-right font-extralight">{`$${total} total (tax incl.)`}</p>
+          )}
           {/* Button only available for Searched Hotels, and Not From Favorites List */}
           {fromFavPage === "false" && (
             <div className="w-full flex justify-end">
@@ -217,7 +227,48 @@ const Details = ({ detailsResult, session }: Props) => {
               </button>
             </div>
           )}
-          {/* More Hotel Details, Amenities */}
+          {/* Reservation Details */}
+          {booking === "true" && (
+            <>
+              <h3 className="text-2xl font-semibold pt-3 pb-7">
+                Booking & Payment details
+              </h3>
+              <ul className="list-disc pl-5 pb-7">
+                <li>
+                  Hotel: <span className="font-semibold">{title}</span>
+                </li>
+                <li>
+                  City:{" "}
+                  <span className="font-semibold">
+                    {(location as string).split("from ")[1]}
+                  </span>{" "}
+                </li>
+                <li>
+                  Start date:{" "}
+                  <span className="font-semibold"> {startDate}</span>{" "}
+                </li>
+                <li>
+                  End date: <span className="font-semibold"> {endDate}</span>
+                </li>
+                <li>
+                  Price per night<span className="font-semibold"> {price}</span>
+                </li>
+                <li>
+                  Num. of nights:{" "}
+                  <span className="font-semibold">
+                    {" "}
+                    {Math.round(
+                      +total! / Number((price! as string).split("$")[1])
+                    )}
+                  </span>
+                </li>
+                <li>
+                  Total price: <span className="font-semibold"> ${total}</span>
+                </li>
+              </ul>
+              {/* More Hotel Details, Amenities */}
+            </>
+          )}
           <h3 className="text-2xl font-semibold pb-7">Amenities</h3>
           <ul className="list-disc pl-5">
             {detailsResult.amenities.map((item) => (
