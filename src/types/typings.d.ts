@@ -4,6 +4,11 @@ export interface ICityData {
   img: string;
   location: string;
   province: string;
+  id?: string;
+}
+export interface IInspiredCity {
+  location: string;
+  id: string;
 }
 
 export interface IStyleData {
