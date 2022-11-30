@@ -1,5 +1,4 @@
 import "next-auth";
-import { DefaultUser } from "next-auth";
 
 export interface ICityData {
   img: string;
@@ -61,10 +60,12 @@ export interface IResult {
   title: string;
   total: number;
   userEmail?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface IDetails {
-  images: string[],
+  images: string[];
   amenities: string[];
   address: string;
 }
@@ -102,13 +103,13 @@ export interface provider {
 
 export interface IReservation {
   price_data: {
-    currency: string,
-    unit_amount: number,
+    currency: string;
+    unit_amount: number;
     product_data: {
-      name: string,
-      description: string,
-      images: string[],
-    },
-  },
-  quantity: number,
+      name: string;
+      description: string;
+      images: string[];
+    };
+  };
+  quantity: number;
 }
