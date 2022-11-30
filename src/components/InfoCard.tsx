@@ -15,11 +15,12 @@ type Props = {
   cityId?: string;
   item: IResult;
   session: Session;
-  favorite?: Boolean;
-  fromFavPage?: Boolean;
+  favorite?: boolean;
+  fromFavPage?: boolean;
   startDate?: string;
   endDate?: string;
   numOfGuests?: string;
+  booking?: boolean;
 };
 
 const InfoCard = ({
@@ -31,25 +32,25 @@ const InfoCard = ({
   numOfGuests,
   favorite = false,
   fromFavPage = false,
+  booking = false,
 }: Props) => {
   const router = useRouter();
   const [isFav, setIsFav] = useState(false);
   const userEmail = session?.user?.email!;
   const hotelId = item.hotelId;
-  let startDateFormatted = "";
-  let endDateFormatted = "";
+  let startDateFormatted: string;
+  let endDateFormatted: string;
 
   useEffect(() => {
     if (favorite) setIsFav(true);
+    if (startDate && endDate) {
+      startDateFormatted = format(new Date(startDate as string), "dd MMMM yy");
+      endDateFormatted = format(new Date(endDate as string), "dd MMMM yy");
+    } else {
+      startDateFormatted = item.startDate as string;
+      endDateFormatted = item.endDate as string;
+    }
   }, []);
-
-  if (startDate && endDate) {
-    startDateFormatted = format(
-      new Date(startDate as string),
-      "dd MMMM yy"
-    );
-    endDateFormatted = format(new Date(endDate as string), "dd MMMM yy");
-  }
 
   const details = () => {
     router.push({
@@ -58,6 +59,7 @@ const InfoCard = ({
         cityId: cityId,
         favorite: favorite as unknown as string,
         fromFavPage: fromFavPage as unknown as string,
+        booking: booking as unknown as string,
         startDate: startDateFormatted,
         endDate: endDateFormatted,
         numOfGuests: numOfGuests,
@@ -104,7 +106,8 @@ const InfoCard = ({
 
   return (
     <div className="flex py-7 px-2 pr-4 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
-      <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
+      {/* Main Image */}
+      <div className="relative h-40 w-40 md:h-52 md:w-80 flex-shrink-0">
         <Image
           className="object-cover rounded-2xl"
           src={item.img}
@@ -112,33 +115,41 @@ const InfoCard = ({
           fill
         />
       </div>
-
       <div className="flex flex-col flex-grow pl-5">
         <div className="flex justify-between">
+          {/* Hotel Location Info, distance from nearest city center */}
           <p className="">{item.location}</p>
-          {!isFav ? (
-            <HeartIcon
-              onClick={() => {
-                submitFavorite();
-                setIsFav(true);
-              }}
-              className="h-7 cursor-pointer"
-            />
-          ) : (
-            <HeartIconSolid
-              onClick={() => {
-                deleteFavorite();
-                setIsFav(false);
-              }}
-              className="h-7 cursor-pointer"
-            />
-          )}
+          {/* Favorite Heart Icon */}
+          {!booking &&
+            (!isFav ? (
+              <HeartIcon
+                onClick={() => {
+                  submitFavorite();
+                  setIsFav(true);
+                }}
+                className="h-7 cursor-pointer"
+              />
+            ) : (
+              <HeartIconSolid
+                onClick={() => {
+                  deleteFavorite();
+                  setIsFav(false);
+                }}
+                className="h-7 cursor-pointer"
+              />
+            ))}
         </div>
+        {/* Hotel Title, Description */}
         <h4 className="text-xl">{item.title}</h4>
         <div className="border-b w-10 pt-2" />
-        <p className="pt-2 text-sm text-gray-800 flex-grow">
-          {item.description}
-        </p>
+        <div className="pt-2 text-sm text-gray-800 flex-grow">
+          <p>{item.description}</p>
+          {booking && (
+            <p className="font-light">
+              Reserved from {item.startDate} to {item.endDate}
+            </p>
+          )}
+        </div>
         {/* Hotel Rating, Star Icon */}
         <div className="flex justify-between items-end pt-5">
           <p className="flex items-center">
@@ -150,7 +161,9 @@ const InfoCard = ({
               {`${item.price} / night`}
             </p>
             {/* Total Price */}
-            <p className="text-right font-extralight">{`$${item.total} total (tax incl.)`}</p>
+            {!fromFavPage && (
+              <p className="text-right font-extralight">{`$${item.total} total (tax incl.)`}</p>
+            )}
             {/* More Details, go to Details Page */}
             <div className="justify-end flex items-baseline">
               <p
