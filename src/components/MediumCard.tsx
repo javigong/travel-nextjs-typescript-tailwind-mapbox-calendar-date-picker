@@ -7,7 +7,7 @@ type Props = {
 
 const MediumCard = ({ styleData }: Props) => {
   return (
-    <div className="cursor-pointer hover:scale-105 transform transition duration-300 ease-out">
+    <div className="hover:scale-105 transform transition duration-300 ease-out">
       <div className="relative h-80 w-80">
         <Image
           className="object-cover rounded-xl"
