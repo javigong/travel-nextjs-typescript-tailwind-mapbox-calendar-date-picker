@@ -15,7 +15,7 @@ Includes booking reservation features like Calendar Date Picker, Hotel Map Locat
 - TypeScript
 - Tailwind CSS
 - Prisma
-- Cockroach DB (cloud distributed SQL database)
+- Cockroach DB (Distributed cloud SQL database)
 - NextAuth
 - Google OAuth
 - Hotels API
