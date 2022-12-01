@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import CarouselCard from "../components/CarouselCard";
 import Drawer from "../components/Drawer";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -185,20 +186,9 @@ const Details = ({ detailsResult, session }: Props) => {
             </p>
           </div>
           {/* Photo Gallery */}
-          <Carousel
-            className="pt-5"
-            showStatus={false}
-            autoPlay
-            infiniteLoop
-            emulateTouch
-            interval={7000}
-          >
-            {detailsResult.images.slice(0, 25).map((item) => (
-              <div className="h-[400px] w-full md:h-[500px]">
-                <img className="object-cover" src={item} alt={item} />
-              </div>
-            ))}
-          </Carousel>
+          <CarouselCard 
+            images={detailsResult.images.slice(0, 25)}
+          />
           {/* Accommodation Price Details */}
           {fromFavPage === "false" && (
             <>
