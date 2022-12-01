@@ -1,27 +1,54 @@
-# Next.js + Tailwind CSS Example
+# Travel Booking: Hotel Reservation Project
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+Travel Booking is a case study of a hotel reservation platform implemented using Next.js, TypeScript, Tailwind CSS, Prisma, Cockroach DB (cloud distributed SQL DB), NextAuth (Google Auth), Hotels API, Stripe Payments Checkout, Webhooks, MapBox, and Calendar Date Picker.
 
-## Deploy your own
+Includes booking reservation features like Calendar Date Picker, Hotel Map Location, Checkout Payment, and Customer Booking History.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+![smartmockups_lb4dtxsx](https://user-images.githubusercontent.com/42308135/204942042-fe23854f-d8ed-42bc-b234-0132af974e68.jpg)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+🔗 [Open live Demo](https://travel-nextjs-typescript-tailwind-mapbox-calendar-date-picker.vercel.app/)
 
-## How to use
+## Tech Stack
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+- Next.js
+- React.js
+- TypeScript
+- Tailwind CSS
+- Prisma
+- Cockroach DB (cloud distributed SQL database)
+- NextAuth
+- Google OAuth
+- Hotels API
+- Stripe Checkout
+- Webhooks
+- MapBox
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
+## Features
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+- Responsive UI with Tailwind CSS.
+- Hotels search via Hotels API
+- Hotel map location with MapBox.
+- Payment Checkout flow with Stripe
+- Customer Booking History
+- Data fetching and caching techniques using SSR (Server Side Rendering) with Next.js.
+- User Authentication with NextAuth and Google OAuth.
+- Robust code using TypeScript.
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+## Screen Captures
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+<img src="https://user-images.githubusercontent.com/42308135/204944413-e1cc740e-8b1d-4276-b8b5-cb23e011bfff.gif" width="750" />
+<img src="https://user-images.githubusercontent.com/42308135/204948039-9335d231-c6d6-4bb2-9fed-91ab9ceada11.gif" width="750" />
+
+## Screenshots
+
+<img src="https://user-images.githubusercontent.com/42308135/204951529-267242eb-2f9c-48d0-bce3-4926d7c191df.png" width="750" />
+<img src="https://user-images.githubusercontent.com/42308135/204953659-b5fe0682-bd44-464e-a49a-28525075e6cc.png" width="600" />
+<img src="https://user-images.githubusercontent.com/42308135/204951745-aa84d9ae-2118-484e-b777-d400a6768c02.png" width="600" />
+<img src="https://user-images.githubusercontent.com/42308135/204952050-6b6dcc19-a317-47a4-b8f0-fe73333e2c58.png" width="600" />
+<img src="https://user-images.githubusercontent.com/42308135/204952287-697be151-694f-4db7-99b3-008d28c668e7.png" width="600" />
+<img src="https://user-images.githubusercontent.com/42308135/204952752-fbfa67a8-bbba-47ce-ba24-f491f4cedd78.png" width="600" />
+
+## Deployment details
+
+Travel Bookings deployed using Vercel: [https://travel-nextjs-typescript-tailwind-mapbox-calendar-date-picker.vercel.app/](https://travel-nextjs-typescript-tailwind-mapbox-calendar-date-picker.vercel.app/)
+
