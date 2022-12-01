@@ -1,6 +1,6 @@
 # Travel Booking: Hotel Reservation Project
 
-Travel Booking is a case study of a hotel reservation platform implemented using Next.js, TypeScript, Tailwind CSS, Prisma, Cockroach DB (cloud distributed SQL DB), NextAuth (Google Auth), Hotels API, Stripe Payments Checkout, Webhooks, MapBox, and Calendar Date Picker.
+Travel Booking is a case study of a hotel reservation platform implemented using Next.js, TypeScript, Tailwind CSS, Prisma, Cockroach DB (Distributed cloud SQL database), NextAuth (Google Auth), Hotels API, Stripe Payments Checkout, Webhooks, MapBox, and Calendar Date Picker.
 
 Includes booking reservation features like Calendar Date Picker, Hotel Map Location, Checkout Payment, and Customer Booking History.
 
