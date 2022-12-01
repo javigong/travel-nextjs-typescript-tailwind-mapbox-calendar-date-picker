@@ -160,7 +160,7 @@ const Header = ({ placeholder, isOpen, setIsOpen }: Props) => {
           </div>
           <div className="flex">
             <button onClick={resetInput} className="flex-grow text-gray-400">
-              Cancel
+              Close
             </button>
             <button onClick={search} className="flex-grow text-orange-500">
               Search
