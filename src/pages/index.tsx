@@ -3,11 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
 import Banner from "../components/Banner";
+import CarouselTitlesCard from "../components/CarouselTitlesCard";
 import Drawer from "../components/Drawer";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LargeCard from "../components/LargeCard";
-import MediumCard from "../components/MediumCard";
 import SmallCard from "../components/SmallCard";
 import { ICityData, IInspiredCity, IStyleData } from "../types/typings";
 
@@ -49,11 +49,8 @@ const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
             Find your travel style
           </h2>
           {/* Map styles data from api */}
-          <div className="flex space-x-3 overflow-x-scroll scrollbar-thin scrollbar-track-[#ede8e824] scrollbar-thumb-orange-400 p-3 -ml-3 pb-6">
-            {stylesData.map((style) => (
-              <MediumCard key={style.img} styleData={style} />
-            ))}
-          </div>
+          <CarouselTitlesCard images={stylesData} />
+          {/* Travel Styles Carousel */}
         </section>
 
         <LargeCard
