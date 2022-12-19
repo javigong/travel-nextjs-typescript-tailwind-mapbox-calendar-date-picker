@@ -99,6 +99,9 @@ export interface ISuggestionFormatted {
   displayName: string;
   id: number;
   type: string;
+  img?: string;
+  location?: string;
+  province?: string;
 }
 
 export interface provider {
