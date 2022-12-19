@@ -18,20 +18,32 @@ import getCitySuggestions from "../utils/getCitySuggestions";
 
 type Props = {
   placeholder?: string;
+  searchInput: string;
+  setSearchInput: Dispatch<SetStateAction<string>>;
+  selectedCity: ISuggestionFormatted | null;
+  setSelectedCity: Dispatch<SetStateAction<ISuggestionFormatted | null>>;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const Header = ({ placeholder, isOpen, setIsOpen }: Props) => {
+const Header = ({
+  placeholder,
+  searchInput,
+  setSearchInput,
+  selectedCity,
+  setSelectedCity,
+  isOpen,
+  setIsOpen,
+}: Props) => {
   const { data: session, status } = useSession();
-  const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
   const debouncedSearchInput = useDebounce(searchInput, 300);
   const [citySuggestions, setCitySuggestions] = useState<
     ISuggestionFormatted[] | null
   >(null);
-  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
-    null
-  );
+  // const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+  //   null
+  // );
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numOfGuests, setNumOfGuests] = useState("1");
@@ -73,6 +85,8 @@ const Header = ({ placeholder, isOpen, setIsOpen }: Props) => {
         numOfGuests,
       },
     });
+
+    resetInput();
   };
 
   return (
