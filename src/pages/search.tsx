@@ -116,14 +116,14 @@ export const getServerSideProps = async (
   const { id, location, startDate, endDate, numOfGuests } = context.query;
   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   const searchResults = await getHotelList(
     id,

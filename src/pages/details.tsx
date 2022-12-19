@@ -31,7 +31,7 @@ type Props = {
 const Details = ({ detailsResult, session }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isFav, setIsFav] = useState(false);
-  const userEmail = session.user?.email;
+  const userEmail = session?.user?.email || "anonymous@user.com";
   const router = useRouter();
   const {
     cityId,
@@ -298,14 +298,14 @@ export const getServerSideProps = async (
   const { hotelId } = context.query;
   const session = await getSession(context);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   const detailsResult = await getHotelDetails(hotelId).catch(console.error);
 
