@@ -48,6 +48,66 @@ Includes booking reservation features like Calendar Date Picker, Hotel Map Locat
 <img src="https://user-images.githubusercontent.com/42308135/204952287-697be151-694f-4db7-99b3-008d28c668e7.png" width="600" />
 <img src="https://user-images.githubusercontent.com/42308135/204952752-fbfa67a8-bbba-47ce-ba24-f491f4cedd78.png" width="600" />
 
+## Installation
+
+First, clone the project and open it with Visual Studio Code:
+
+```bash
+git clone https://github.com/javigong/travel-nextjs-typescript-tailwind-mapbox-calendar-date-picker.git
+
+cd travel-nextjs-typescript-tailwind-mapbox-calendar-date-picker
+
+code .
+```
+
+Then, create a .env.local file in the root of the project and configure the following environment variables:
+
+```
+# Mapbox
+NEXT_PUBLIC_MAPBOX_TOKEN=
+
+# Rapidapi, Hotels API
+NEXT_PUBLIC_RAPIDAPI_KEY=
+
+# Firebase client
+FIREBASE_CLIENT_API_KEY=
+FIREBASE_CLIENT_AUTH_DOMAIN=
+FIREBASE_CLIENT_PROJECT_ID=
+FIREBASE_CLIENT_STORAGE_BUCKET=
+FIREBASE_CLIENT_MESSAGING_SENDER_ID=
+FIREBASE_CLIENT_APP_ID=
+
+# Authentication
+# Need to add Authorized redirect URIs to Google Cloud OAuth Service
+# http://localhost:3000/api/auth/callback/google or https://your.deployment.url.com/api/auth/callback/google
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+# Next Auth
+# You can generate the secret via 'openssl rand -base64 32' on Linux
+# More info: https://next-auth.js.org/configuration/options#secret
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+
+# Stripe Payments
+# More info: https://stripe.com/docs/payments/accept-a-payment
+STRIPE_PUBLIC_KEY=
+STRIPE_SECRET_KEY=
+
+# Stripe Terminal/CLI
+STRIPE_SIGNING_SECRET=
+```
+
+Finally, install the npm dependencies and run the application:
+
+```bash
+npm install
+
+npm run dev
+```
+
+Now the application is running on http://localhost:3000 🚀
+
 ## Deployment details
 
 Travel Bookings deployed using Vercel: [https://travel-nextjs-typescript-tailwind-mapbox-calendar-date-picker.vercel.app/](https://travel-nextjs-typescript-tailwind-mapbox-calendar-date-picker.vercel.app/)
