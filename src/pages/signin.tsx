@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Drawer from "../components/Drawer";
 import Header from "../components/Header";
-import { provider } from "../types/typings";
+import { ISuggestionFormatted, provider } from "../types/typings";
 
 type Props = {
   providers: provider[];
@@ -13,6 +13,11 @@ type Props = {
 
 const SignIn = ({ providers }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+    null
+  );
+
   return (
     <div className="h-screen">
       <Head>
@@ -20,11 +25,23 @@ const SignIn = ({ providers }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}
-      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Header
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
       {/* Main */}
       <main className="h-[80%]">
         <div className="relative h-[80%]">
-          <Image className="-translate-y-[55px] max-w-xl p-5 mx-auto" src="/travel-signin.svg" fill alt="Travel" />
+          <Image
+            className="-translate-y-[55px] max-w-xl p-5 mx-auto"
+            src="/travel-signin.svg"
+            fill
+            alt="Travel"
+          />
           {Object.values(providers).map((provider) => (
             <div
               className="absolute top-[78%] w-full text-center"

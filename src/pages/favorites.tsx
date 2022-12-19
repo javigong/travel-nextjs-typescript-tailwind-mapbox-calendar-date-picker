@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import InfoCard from "../components/InfoCard";
 import MapCard from "../components/MapCard";
-import { IResult } from "../types/typings";
+import { IResult, ISuggestionFormatted } from "../types/typings";
 
 type Props = {
   favorites: IResult[];
@@ -17,10 +17,21 @@ type Props = {
 
 const Favorites = ({ favorites, session }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+    null
+  );
 
   return (
     <div>
-      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Header
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
       <main className="flex">
         {/* Left Section */}
         <section className="flex-grow pt-14 px-6">

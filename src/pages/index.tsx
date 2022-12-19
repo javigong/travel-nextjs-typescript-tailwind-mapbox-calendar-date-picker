@@ -9,16 +9,24 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LargeCard from "../components/LargeCard";
 import SmallCard from "../components/SmallCard";
-import { ICityData, IInspiredCity, IStyleData } from "../types/typings";
+import {
+  IInspiredCity,
+  IStyleData,
+  ISuggestionFormatted,
+} from "../types/typings";
 
 type Props = {
-  citiesData: ICityData[];
+  citiesData: ISuggestionFormatted[];
   stylesData: IStyleData[];
   getInspiredCities: IInspiredCity[];
 };
 
 const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+    null
+  );
 
   return (
     <div className="">
@@ -27,7 +35,14 @@ const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}
-      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Header
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
       {/* Banner */}
       <Banner getInspiredCities={getInspiredCities} />
 
@@ -39,7 +54,12 @@ const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
           {/* Map Canadian cities */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {citiesData.map((city) => (
-              <SmallCard key={city.img} cityData={city} />
+              <SmallCard
+                key={city.img}
+                cityData={city}
+                setSearchInput={setSearchInput}
+                setSelectedCity={setSelectedCity}
+              />
             ))}
           </div>
         </section>
@@ -82,8 +102,8 @@ const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
 export default Home;
 
 export const getStaticProps = async () => {
-  // citiesDataUrl = "https://www.jsonkeeper.com/b/JRFK";
-  const citiesDataUrl = "https://www.jsonkeeper.com/b/I4ZD";
+  // previous citiesDataUrl = "https://www.jsonkeeper.com/b/AU5N";
+  const citiesDataUrl = "https://www.jsonkeeper.com/b/DXQ2";
   const citiesData = await fetch(citiesDataUrl).then((res) => res.json());
 
   const stylesData = await fetch("https://www.jsonkeeper.com/b/RWNY").then(

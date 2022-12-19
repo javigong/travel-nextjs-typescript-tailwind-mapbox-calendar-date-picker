@@ -11,14 +11,13 @@ import { getSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import CarouselCard from "../components/CarouselCard";
 import Drawer from "../components/Drawer";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MapCard from "../components/MapCard";
-import { IDetails, IResult } from "../types/typings";
+import { IDetails, IResult, ISuggestionFormatted } from "../types/typings";
 import getHotelDetails from "../utils/getHotelDetails";
 
 let stripePromise: Promise<Stripe | null>;
@@ -30,6 +29,10 @@ type Props = {
 
 const Details = ({ detailsResult, session }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+    null
+  );
   const [isFav, setIsFav] = useState(false);
   const userEmail = session?.user?.email || "anonymous@user.com";
   const router = useRouter();
@@ -138,6 +141,10 @@ const Details = ({ detailsResult, session }: Props) => {
     <div>
       {/* No Placeholder for Hotels from Favorite List */}
       <Header
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         placeholder={
@@ -186,9 +193,7 @@ const Details = ({ detailsResult, session }: Props) => {
             </p>
           </div>
           {/* Photo Gallery */}
-          <CarouselCard 
-            images={detailsResult.images.slice(0, 25)}
-          />
+          <CarouselCard images={detailsResult.images.slice(0, 25)} />
           {/* Accommodation Price Details */}
           {fromFavPage === "false" && (
             <>

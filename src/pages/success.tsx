@@ -9,6 +9,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import Drawer from "../components/Drawer";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { ISuggestionFormatted } from "../types/typings";
 
 type Props = {
   session: Session;
@@ -16,12 +17,23 @@ type Props = {
 
 const Success = ({ session }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+    null
+  );
   const router = useRouter();
 
   return (
     <div>
       {/* No Placeholder for Hotels from Favorite List */}
-      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Header
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
       <main className="flex flex-col max-w-4xl mx-auto">
         {/* Left Section */}
         <section className="flex-grow pt-14 px-6">

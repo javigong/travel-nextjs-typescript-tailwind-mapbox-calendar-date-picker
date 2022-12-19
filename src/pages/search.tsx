@@ -11,7 +11,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import InfoCard from "../components/InfoCard";
 import MapCard from "../components/MapCard";
-import { IResult } from "../types/typings";
+import { IResult, ISuggestionFormatted } from "../types/typings";
 import getHotelList from "../utils/getHotelList";
 
 type Props = {
@@ -21,6 +21,10 @@ type Props = {
 
 const Search = ({ searchResults, session }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedCity, setSelectedCity] = useState<ISuggestionFormatted | null>(
+    null
+  );
   const router = useRouter();
   const { id, location, startDate, endDate, numOfGuests } = router.query;
   const formattedStartDate = format(
@@ -33,6 +37,10 @@ const Search = ({ searchResults, session }: Props) => {
   return (
     <div>
       <Header
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         placeholder={`${location} - ${range} - ${numOfGuests}`}
