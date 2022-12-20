@@ -14,6 +14,7 @@
     "@stripe/stripe-js": "^1.44.1",
     "axios": "^1.2.0",
     "date-fns": "^2.29.3",
+    "framer-motion": "^7.10.2",
     "geolib": "^3.3.3",
     "mapbox-gl": "^2.11.0",
     "micro": "^10.0.0",

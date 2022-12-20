@@ -5,6 +5,7 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -154,33 +155,51 @@ const Header = ({
         )}
       {/* Date Range Picker, Bottom */}
       {selectedCity && (
-        <div className="flex flex-col col-span-3 mx-auto my-3">
-          <DateRangePicker
-            ranges={[selectionRange]}
-            minDate={new Date()}
-            rangeColors={["#EA640E"]}
-            onChange={handleSelect}
-          />
-          <div className="flex items-center border-b mb-4 mx-5">
-            <h2 className="text-l flex-grow font-semibold">Number of Guests</h2>
-            <UsersIcon className="h-5" />
-            <input
-              value={numOfGuests}
-              onChange={(e) => setNumOfGuests(e.target.value)}
-              className="w-12 pl-2 text-l outline-none text-orange-500"
-              type="number"
-              min={1}
+        <motion.div
+          initial={{
+            y: -25,
+            opacity: 0,
+          }}
+          transition={{
+            duration: 0.3,
+          }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          className="flex absolute left-0 right-0 mx-auto items-center flex-col col-span-3 mt-[68px] bg-transparent rounded-b-lg"
+        >
+          <div className="flex z-10 mx-auto items-center flex-col col-span-3 mb-3 bg-white pb-5 rounded-b-lg shadow-md">
+            <DateRangePicker
+              ranges={[selectionRange]}
+              minDate={new Date()}
+              rangeColors={["#EA640E"]}
+              onChange={handleSelect}
             />
+            <div />
+            <div className="self-end flex w-fit gap-4 items-center mb-4 pl-5">
+              <h2 className="text-l flex-grow font-semibold">
+                Number of Guests
+              </h2>
+              <div className="flex">
+                <UsersIcon className="h-5" />
+                <input
+                  value={numOfGuests}
+                  onChange={(e) => setNumOfGuests(e.target.value)}
+                  className="w-12 pl-2 text-l outline-none text-orange-500"
+                  type="number"
+                  min={1}
+                />
+              </div>
+            </div>
+            <div className="flex w-full justify-between px-6 pt-2">
+              <button onClick={resetInput} className="bg-white self-start px-5 py-2 shadow-md rounded-full font-bold text-sm hover:shadow-xl active:scale-90 transition duration-150">
+                Close
+              </button>
+              <button onClick={search} className="bg-white px-5 py-2 shadow-md rounded-full font-bold text-sm hover:shadow-xl active:scale-90 transition duration-150">
+                Search
+              </button>
+            </div>
           </div>
-          <div className="flex">
-            <button onClick={resetInput} className="flex-grow text-gray-400">
-              Close
-            </button>
-            <button onClick={search} className="flex-grow text-orange-500">
-              Search
-            </button>
-          </div>
-        </div>
+        </motion.div>
       )}
     </header>
   );
