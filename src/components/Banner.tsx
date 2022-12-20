@@ -59,7 +59,7 @@ const Banner = ({ getInspiredCities, setSearchInput, setSelectedCity }: Props) =
         </p>
         <button
           onClick={setSearchInputAndSelectedCity}
-          className="text-red-600 bg-white px-10 py-4 shadow-md rounded-full font-bold my-3 hover:shadow-xl active:scale-90 transition duration-150"
+          className="text-red-600 text-sm bg-white px-5 py-2 shadow-md rounded-full font-bold my-3 hover:shadow-xl active:scale-90 transition duration-150"
         >
           I'm feeling lucky
         </button>
