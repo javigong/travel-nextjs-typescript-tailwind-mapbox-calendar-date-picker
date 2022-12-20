@@ -2,13 +2,16 @@ import { addDays } from "date-fns";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { IInspiredCity } from "../types/typings";
+import { Dispatch, SetStateAction } from "react";
+import { IInspiredCity, ISuggestionFormatted } from "../types/typings";
 
 type Props = {
-  getInspiredCities: IInspiredCity[];
+  getInspiredCities: ISuggestionFormatted[];
+  setSearchInput: Dispatch<SetStateAction<string>>;
+  setSelectedCity: Dispatch<SetStateAction<ISuggestionFormatted | null>>;
 };
 
-const Banner = ({ getInspiredCities }: Props) => {
+const Banner = ({ getInspiredCities, setSearchInput, setSelectedCity }: Props) => {
   const { data: session } = useSession();
   const router = useRouter();
   const startDate = addDays(new Date(), 4);
@@ -18,18 +21,23 @@ const Banner = ({ getInspiredCities }: Props) => {
   const luckyCity =
     getInspiredCities[Math.floor(Math.random() * getInspiredCities.length)];
 
-  const search = () => {
-    router.push({
-      pathname: "/search",
-      query: {
-        location: luckyCity.location,
-        id: luckyCity.id,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        numOfGuests,
-      },
-    });
-  };
+  // const search = () => {
+  //   router.push({
+  //     pathname: "/search",
+  //     query: {
+  //       location: luckyCity.location,
+  //       id: luckyCity.id,
+  //       startDate: startDate.toISOString(),
+  //       endDate: endDate.toISOString(),
+  //       numOfGuests,
+  //     },
+  //   });
+  // };
+
+  const setSearchInputAndSelectedCity = () => {
+    setSearchInput(luckyCity.displayName);
+    setSelectedCity(luckyCity);
+  }
 
   return (
     <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl-h-[600px] 2xl:h-[700px]">
@@ -50,7 +58,7 @@ const Banner = ({ getInspiredCities }: Props) => {
           Don't you know where to travel?
         </p>
         <button
-          onClick={search}
+          onClick={setSearchInputAndSelectedCity}
           className="text-red-600 bg-white px-10 py-4 shadow-md rounded-full font-bold my-3 hover:shadow-xl active:scale-90 transition duration-150"
         >
           I'm feeling lucky

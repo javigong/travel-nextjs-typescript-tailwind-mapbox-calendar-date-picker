@@ -9,16 +9,12 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LargeCard from "../components/LargeCard";
 import SmallCard from "../components/SmallCard";
-import {
-  IInspiredCity,
-  IStyleData,
-  ISuggestionFormatted,
-} from "../types/typings";
+import { IStyleData, ISuggestionFormatted } from "../types/typings";
 
 type Props = {
   citiesData: ISuggestionFormatted[];
   stylesData: IStyleData[];
-  getInspiredCities: IInspiredCity[];
+  getInspiredCities: ISuggestionFormatted[];
 };
 
 const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
@@ -44,7 +40,11 @@ const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
         setIsOpen={setIsOpen}
       />
       {/* Banner */}
-      <Banner getInspiredCities={getInspiredCities} />
+      <Banner
+        getInspiredCities={getInspiredCities}
+        setSearchInput={setSearchInput}
+        setSelectedCity={setSelectedCity}
+      />
 
       <main className="max-w-7xl mx-auto px-8 sm:px-16">
         <section className="pt-6">
@@ -79,6 +79,8 @@ const Home = ({ citiesData, stylesData, getInspiredCities }: Props) => {
           description="Curated by our Travel Experts"
           buttonText="Get Inspired"
           getInspiredCities={getInspiredCities}
+          setSearchInput={setSearchInput}
+          setSelectedCity={setSelectedCity}
         />
       </main>
       <Footer />
@@ -111,7 +113,8 @@ export const getStaticProps = async () => {
   );
 
   const getInspiredCities = await fetch(
-    "https://www.jsonkeeper.com/b/AU5N"
+    // "https://www.jsonkeeper.com/b/AU5N"
+    "https://www.jsonkeeper.com/b/SNPG"
   ).then((res) => res.json());
 
   return {
