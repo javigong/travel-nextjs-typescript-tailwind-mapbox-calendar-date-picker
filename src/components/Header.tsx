@@ -132,27 +132,39 @@ const Header = ({
         </div>
       </div>
       {/* Search Autocompletion, Bottom */}
-      {!selectedCity &&
-        citySuggestions &&
-        citySuggestions?.map(
-          (city) =>
-            city.type === "CITY" && (
-              <div className="flex flex-col col-start-2 col-end-4 mt-2">
-                <div
-                  className="flex"
-                  key={city.id}
-                  onClick={() => {
-                    setSelectedCity(city);
-                    setSearchInput(city.displayName);
-                  }}
-                >
-                  <p className="shrink cursor-pointer p-1 px-5 hover:bg-orange-100 active:bg-orange-200 rounded-lg">
-                    {city.displayName}
-                  </p>
-                </div>
-              </div>
-            )
-        )}
+      <motion.div
+        initial={{
+          y: -25,
+          opacity: 0,
+        }}
+        transition={{
+          duration: 0.3,
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        className="flex absolute h-fit left-0 right-0 mx-auto items-center flex-col col-span-3 mt-[68px] bg-transparent"
+      >
+        <div className="flex z-10 mx-auto items-start flex-col col-span-3 mb-3 bg-white pb-5 rounded-b-lg shadow-md">
+          {!selectedCity &&
+            citySuggestions &&
+            citySuggestions?.map(
+              (city) =>
+                city.type === "CITY" && (
+                  <div
+                    key={city.id}
+                    onClick={() => {
+                      setSelectedCity(city);
+                      setSearchInput(city.displayName);
+                    }}
+                  >
+                    <p className="shrink cursor-pointer p-1 px-1 mx-5 hover:bg-orange-100 active:bg-orange-200 rounded-lg">
+                      {city.displayName}
+                    </p>
+                  </div>
+                )
+            )}
+        </div>
+      </motion.div>
       {/* Date Range Picker, Bottom */}
       {selectedCity && (
         <motion.div
@@ -165,7 +177,7 @@ const Header = ({
           }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          className="flex absolute left-0 right-0 mx-auto items-center flex-col col-span-3 mt-[68px] bg-transparent rounded-b-lg"
+          className="flex absolute left-0 right-0 mx-auto items-center flex-col col-span-3 mt-[68px] bg-transparent"
         >
           <div className="flex z-10 mx-auto items-center flex-col col-span-3 mb-3 bg-white pb-5 rounded-b-lg shadow-md">
             <DateRangePicker
@@ -191,10 +203,16 @@ const Header = ({
               </div>
             </div>
             <div className="flex w-full justify-between px-6 pt-2">
-              <button onClick={resetInput} className="bg-white self-start px-5 py-2 shadow-md rounded-full font-bold text-sm hover:shadow-xl active:scale-90 transition duration-150">
+              <button
+                onClick={resetInput}
+                className="bg-white self-start px-5 py-2 shadow-md rounded-full font-bold text-sm hover:shadow-xl active:scale-90 transition duration-150"
+              >
                 Close
               </button>
-              <button onClick={search} className="bg-white px-5 py-2 shadow-md rounded-full font-bold text-sm hover:shadow-xl active:scale-90 transition duration-150">
+              <button
+                onClick={search}
+                className="bg-white px-5 py-2 shadow-md rounded-full font-bold text-sm hover:shadow-xl active:scale-90 transition duration-150"
+              >
                 Search
               </button>
             </div>
